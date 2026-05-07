@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(claude-api)",
+      "Skill(claude-api:*)",
+      "Bash(Get-Content \"C:\\\\temp\\\\claude\\\\e--AI-Project-api\\\\7bcbe7a4-9a16-4532-bd75-9b729f8b0446\\\\tasks\\\\bogchrjc5.output\" -Wait)",
+      "Bash(Select-String --line-buffered \"Successfully installed|ERROR|error|already satisfied|warning\")",
+      "Bash(curl -s http://localhost:8000/health)",
+      "PowerShell(Invoke-WebRequest -Uri \"http://localhost:8000/health\" -UseBasicParsing)",
+      "PowerShell(netstat -ano)",
+      "PowerShell(Start-Process \"http://localhost:8000/docs\")",
+      "PowerShell(Get-Process -Id 22080, 25988 -ErrorAction SilentlyContinue)",
+      "PowerShell(Get-Process python)",
+      "PowerShell(Stop-Process -Force)",
+      "Bash(curl -s http://127.0.0.1:8001/health)",
+      "PowerShell(Start-Process \"http://127.0.0.1:8001/docs\")"
+    ]
+  }
+}
