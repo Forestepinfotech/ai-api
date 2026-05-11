@@ -3,7 +3,7 @@ Call logs router
 Endpoints for managing AI reception calls
 """
 
-from fastapi import APIRouter, HTTPException, Depends, Query
+from fastapi import APIRouter, HTTPException, Query
 from typing import List
 from uuid import UUID
 from models import CallLogCreate, CallLogUpdate, CallLogResponse, CallStatus

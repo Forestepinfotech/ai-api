@@ -6,7 +6,6 @@ Endpoints for managing business appointments
 from fastapi import APIRouter, HTTPException, Query
 from typing import List
 from uuid import UUID
-from datetime import datetime
 from models import AppointmentCreate, AppointmentUpdate, AppointmentResponse
 from database import db_service
 import logging

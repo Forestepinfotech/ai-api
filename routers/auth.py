@@ -4,7 +4,7 @@ Register and login endpoints with JWT token generation
 """
 
 from fastapi import APIRouter, HTTPException, status
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from passlib.context import CryptContext
 from jose import jwt
 
@@ -30,7 +30,7 @@ def _verify_password(plain: str, hashed: str) -> bool:
 
 
 def _create_access_token(user_id: str, email: str) -> str:
-    expire = datetime.utcnow() + timedelta(minutes=_TOKEN_EXPIRE_MINUTES)
+    expire = datetime.now(timezone.utc) + timedelta(minutes=_TOKEN_EXPIRE_MINUTES)
     payload = {"sub": user_id, "email": email, "exp": expire}
     return jwt.encode(payload, settings.jwt_secret_key, algorithm=settings.jwt_algorithm)
 
@@ -63,7 +63,7 @@ async def login(credentials: LoginRequest):
     if not user.get("is_active", True):
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Account is disabled")
 
-    await db_service.update_user(str(user["id"]), {"last_login_at": datetime.utcnow().isoformat()})
+    await db_service.update_user(str(user["id"]), {"last_login_at": datetime.now(timezone.utc).isoformat()})
 
     token = _create_access_token(str(user["id"]), user["email"])
     return TokenResponse(
