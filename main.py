@@ -67,6 +67,19 @@ async def health_check():
         "version": "1.0.0"
     }
 
+@app.get("/debug-env", tags=["System"])
+async def debug_env():
+    """Temporary: check which env vars Railway has loaded"""
+    import os
+    return {
+        "SUPABASE_URL": "SET" if os.getenv("SUPABASE_URL") else "MISSING",
+        "SUPABASE_SERVICE_ROLE_KEY": "SET" if os.getenv("SUPABASE_SERVICE_ROLE_KEY") else "MISSING",
+        "SUPABASE_ANON_KEY": "SET" if os.getenv("SUPABASE_ANON_KEY") else "MISSING",
+        "ANTHROPIC_API_KEY": "SET" if os.getenv("ANTHROPIC_API_KEY") else "MISSING",
+        "JWT_SECRET_KEY": "SET" if os.getenv("JWT_SECRET_KEY") else "MISSING",
+        "ENVIRONMENT": os.getenv("ENVIRONMENT", "MISSING"),
+    }
+
 # API Routes placeholder
 @app.get("/", tags=["Root"])
 async def root():
