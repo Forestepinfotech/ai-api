@@ -2,11 +2,12 @@ fastapi
 uvicorn[standard]
 gunicorn
 a2wsgi
-pydantic>=2.5.0
+pydantic[email]>=2.5.0
 pydantic-settings>=2.1.0
 supabase>=2.3.5
 python-dotenv
 python-jose[cryptography]
 passlib[bcrypt]
+bcrypt>=3.1.0,<4.0.0
 python-multipart
 anthropic>=0.40.0
