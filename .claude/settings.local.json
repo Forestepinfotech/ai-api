@@ -13,7 +13,9 @@
       "PowerShell(Get-Process python)",
       "PowerShell(Stop-Process -Force)",
       "Bash(curl -s http://127.0.0.1:8001/health)",
-      "PowerShell(Start-Process \"http://127.0.0.1:8001/docs\")"
+      "PowerShell(Start-Process \"http://127.0.0.1:8001/docs\")",
+      "PowerShell(winget install GitHub.cli --silent --accept-package-agreements --accept-source-agreements 2>&1)",
+      "PowerShell(Get-Item \"e:\\\\AI Project\\\\ai-api-godaddy-deploy.zip\" | Select-Object Name, @{n='Size_KB';e={[math]::Round\\($_.Length/1KB,1\\)}}; Add-Type -AssemblyName System.IO.Compression.FileSystem; [System.IO.Compression.ZipFile]::OpenRead\\(\"e:\\\\AI Project\\\\ai-api-godaddy-deploy.zip\"\\).Entries | Select-Object FullName)"
     ]
   }
 }
