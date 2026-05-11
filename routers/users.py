@@ -6,12 +6,10 @@ Endpoints for CRUD operations on users
 from fastapi import APIRouter, HTTPException, Query
 from typing import List
 from uuid import UUID
-from passlib.context import CryptContext
+import bcrypt
 
 from database import db_service
 from models import UserCreate, UserResponse, UserUpdate
-
-_pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 router = APIRouter(
     prefix='/api/v1/users',
@@ -24,7 +22,7 @@ async def create_user(user: UserCreate):
     if existing:
         raise HTTPException(status_code=409, detail='Email already registered')
     data = user.model_dump()
-    data["password_hash"] = _pwd_context.hash(data.pop("password"))
+    data["password_hash"] = bcrypt.hashpw(data.pop("password").encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
     data["role"] = "user"
     result = await db_service.create_user(data)
     if not result:

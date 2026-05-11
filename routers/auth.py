@@ -5,7 +5,7 @@ Register and login endpoints with JWT token generation
 
 from fastapi import APIRouter, HTTPException, status
 from datetime import datetime, timedelta, timezone
-from passlib.context import CryptContext
+import bcrypt
 from jose import jwt
 
 from database import db_service
@@ -17,16 +17,15 @@ router = APIRouter(
     tags=["Authentication"],
 )
 
-_pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 _TOKEN_EXPIRE_MINUTES = 60 * 24  # 24 hours
 
 
 def _hash_password(password: str) -> str:
-    return _pwd_context.hash(password)
+    return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
 
 
 def _verify_password(plain: str, hashed: str) -> bool:
-    return _pwd_context.verify(plain, hashed)
+    return bcrypt.checkpw(plain.encode("utf-8"), hashed.encode("utf-8"))
 
 
 def _create_access_token(user_id: str, email: str) -> str:
