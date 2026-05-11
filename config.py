@@ -24,7 +24,7 @@ class Settings(BaseSettings):
     openai_api_key: str = os.getenv("OPENAI_API_KEY", "")
     anthropic_api_key: str = os.getenv("ANTHROPIC_API_KEY", "")
     model_name: str = os.getenv("MODEL_NAME", "claude-haiku-4-5")
-    temperature: float = float(os.getenv("TEMPERATURE", 0.7))
+    temperature: float = float(os.getenv("TEMPERATURE", "0.7"))
     
     # Database
     database_url: str = os.getenv("DATABASE_URL", "")

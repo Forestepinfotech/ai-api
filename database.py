@@ -22,17 +22,24 @@ class SupabaseService:
         return cls._instance
 
     def __init__(self):
+        pass  # lazy init — client created on first use
+
+    def _get_client(self) -> Client:
         if self._client is None:
-            self._client = create_client(
-                settings.supabase_url,
-                settings.supabase_service_role_key
-            )
+            url = settings.supabase_url
+            key = settings.supabase_service_role_key
+            if not url or not key:
+                raise RuntimeError(
+                    "SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY must be set "
+                    "in environment variables."
+                )
+            self._client = create_client(url, key)
             logger.info("Supabase client initialized")
+        return self._client
 
     @property
     def client(self) -> Client:
-        """Get Supabase client"""
-        return self._client
+        return self._get_client()
 
     def _execute(self, builder):
         response = builder.execute()
