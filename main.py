@@ -22,18 +22,35 @@ app = FastAPI(
     title="AI Reception System API",
     description="API for managing AI-powered reception calls, appointments, and business interactions",
     version="1.0.0",
-    docs_url="/docs",  # Swagger UI
-    redoc_url="/redoc",  # ReDoc
-    openapi_url="/openapi.json",  # OpenAPI schema
+    docs_url="/docs",
+    redoc_url="/redoc",
+    openapi_url="/openapi.json",
+    redirect_slashes=False,
 )
 
-# Configure CORS - Allow all origins for this session
+# Configure CORS
+_extra_origins = [o.strip() for o in os.getenv("CORS_ORIGINS", "").split(",") if o.strip()]
+_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "http://localhost:4200",
+    "http://localhost:5173",
+    "http://localhost:8080",
+    "http://localhost:60430",
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1:4200",
+    "http://127.0.0.1:5173",
+    "http://127.0.0.1:8080",
+    "http://127.0.0.1:60430",
+    "https://ai-api-production-f36d.up.railway.app",
+] + _extra_origins
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Allow all origins
+    allow_origins=_ALLOWED_ORIGINS,
     allow_credentials=True,
-    allow_methods=["*"],  # Allow all HTTP methods
-    allow_headers=["*"],  # Allow all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Custom OpenAPI schema
