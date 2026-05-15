@@ -38,6 +38,11 @@ class Settings(BaseSettings):
     jwt_secret_key: str = "change-me-in-production"
     jwt_algorithm: str = "HS256"
 
+    # Vapi.ai
+    vapi_api_key: str = ""
+    vapi_webhook_secret: str = ""
+    default_business_id: str = ""
+
     # Feature flags
     swagger_enabled: bool = True
 

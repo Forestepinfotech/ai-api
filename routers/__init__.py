@@ -1,6 +1,7 @@
 """Routers package for AI Reception System"""
 
 from .appointments import router as appointments_router
+from .vapi import router as vapi_router
 from .api_keys import router as api_keys_router
 from .audit_logs import router as audit_logs_router
 from .auth import router as auth_router
@@ -26,4 +27,5 @@ all_routers = [
     api_keys_router,
     audit_logs_router,
     ai_receptionist_router,
+    vapi_router,
 ]

@@ -222,6 +222,14 @@ class SupabaseService:
     async def update_call_log(self, call_id: str, data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         return await self._update("call_logs", call_id, data)
 
+    async def get_business_by_phone(self, phone_number: str) -> Optional[Dict[str, Any]]:
+        return await self._select_one("businesses", {"phone_number": phone_number})
+
+    async def update_call_log_by_external_id(self, external_call_id: str, data: Dict[str, Any]) -> Optional[Dict[str, Any]]:
+        builder = self.client.table("call_logs").update(data).eq("external_call_id", external_call_id)
+        result = self._execute(builder)
+        return result[0] if result else None
+
     async def get_business_call_logs(
         self,
         business_id: str,
