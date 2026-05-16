@@ -181,10 +181,11 @@ class UserUpdate(BaseModel):
 
 class UserResponse(UserBase):
     id: UUID
-    role: UserRole
-    last_login_at: Optional[datetime]
-    is_active: bool
+    role: Optional[UserRole] = None
+    last_login_at: Optional[datetime] = None
+    is_active: bool = True
     created_at: datetime
+    updated_at: Optional[datetime] = None
 
 # FAQ Models
 class FAQCreate(BaseModel):
