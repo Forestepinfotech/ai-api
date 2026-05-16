@@ -69,12 +69,15 @@ class BusinessUpdate(BaseModel):
     website: Optional[str] = None
     timezone: Optional[str] = None
     ai_greeting_message: Optional[str] = None
+    is_active: Optional[bool] = None
 
 class BusinessResponse(BusinessBase):
     id: UUID
+    address_line2: Optional[str] = None
+    ai_greeting_message: Optional[str] = None
+    is_active: bool = True
     created_at: datetime
     updated_at: datetime
-    is_active: bool = True
 
 # Call Log Models
 class CallLogCreate(BaseModel):
@@ -174,6 +177,7 @@ class UserUpdate(BaseModel):
     first_name: Optional[str] = None
     last_name: Optional[str] = None
     phone_number: Optional[str] = None
+    is_active: Optional[bool] = None
 
 class UserResponse(UserBase):
     id: UUID
